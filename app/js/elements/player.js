@@ -132,6 +132,9 @@ class Player extends Component {
 			DOM.volume.disabled = false;
 			DOM.volume.value = volume;
 
+			DOM.volumeup.disabled = false;
+			DOM.volumedown.disabled = false;
+
 			if (volume == 0 && this._current.volume > 0) { this._toggleVolume = this._current.volume; } // muted
 			if (volume > 0 && this._current.volume == 0) { this._toggleVolume = 0; } // restored
 			this._current.volume = volume;
@@ -139,6 +142,8 @@ class Player extends Component {
 			DOM.mute.disabled = true;
 			DOM.volume.disabled = true;
 			DOM.volume.value = 50;
+			DOM.volumeup.disabled = true;
+			DOM.volumedown.disabled = true;
 		}
 	}
 
@@ -168,6 +173,23 @@ class Player extends Component {
 
 		DOM.volume.addEventListener("input", e => this._app.mpd.command(`setvol ${e.target.valueAsNumber}`));
 		DOM.mute.addEventListener("click", _ => this._app.mpd.command(`setvol ${this._toggleVolume}`));
+
+		DOM.volumeup.addEventListener("click", _ => this._increaseVolume());
+		DOM.volumedown.addEventListener("click", _ => this._decreaseVolume());
+	}
+
+	_increaseVolume() {
+	   let volume = this._current["volume"] + 1
+	   if (volume <= 100) {
+		   this._app.mpd.command("setvol " + volume.toString());
+	   }
+	}
+
+	_decreaseVolume() {
+	   let volume = this._current["volume"] - 1
+	   if (volume >= 0) {
+		   this._app.mpd.command("setvol " + volume.toString());
+	   }
 	}
 
 	_dispatchSongChange(detail) {

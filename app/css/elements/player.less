@@ -12,6 +12,7 @@ cyp-player {
 
 	x-range {
 		flex: auto;
+		height: 22px;
 		--elapsed-color: var(--primary);
                 --thumb-size: 16px;
 	}
@@ -52,7 +53,7 @@ cyp-player {
 	}
 
 	.controls {
-		width: 220px;
+		width: 320px;
 		min-width: 0;
 
 		.flex-column;
@@ -61,18 +62,21 @@ cyp-player {
 			flex: auto;
 
 			.flex-row;
-			justify-content: space-around;
+			justify-content: center;
 
 			.icon { width: 40px; }
-			.icon-play, .icon-pause { width: 64px; }
+			.icon-play, .icon-pause { margin-left: 10px; margin-right: 10px; width: 64px; }
 		}
 
 		.volume {
-			flex: none;
+			flex: auto;
 			margin-bottom: 4px;
 
 			.flex-row;
 			.mute { margin-right: var(--icon-spacing); }
+			.volumedown { flex: 1 0 48px; }
+			.volumeup { flex: 1 0 48px;  }
+			.icon-volume-up, .icon-volume-down { width: 48px; }
 		}
 	}
 
